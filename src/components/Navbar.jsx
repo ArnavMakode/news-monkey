@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-const Navbar = () => {
+const Navbar = ({setSearch}) => {
   const [isDroped, toggleDropdown] = useState(false);
   const [isMenuOpen, setMenu] = useState(false);
-  const [searchTerm, setSearch] = useState('')
+  let searchTerm = '';
   const navigate = useNavigate();
   const search = () => {
+    setSearch(searchTerm);
     if(searchTerm.trim().length !== 0) navigate(`/search/${searchTerm.trim()}`);
   }
   const toggleMenu = () => setMenu(!isMenuOpen);
@@ -79,7 +80,7 @@ const Navbar = () => {
           type="text"
           className="border rounded text-black"
           placeholder="Enter the text"
-          onChange={(e) => (setSearch(e.target.value))}
+          onChange={(e) => searchTerm = e.target.value}
         />
         <button onClick={search} className=" bg-gray-600 rounded mx-1 border px-1 hover:bg-gray-400">
           Search
